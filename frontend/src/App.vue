@@ -17,7 +17,10 @@
 import DropZone from './components/DropZone.vue'
 import Progress from './components/Progress.vue'
 import ResultCard from './components/ResultCard.vue'
+
 import { ref } from 'vue';
+import axios from 'axios';
+
 export default {
   components: {
     DropZone,
@@ -27,12 +30,19 @@ export default {
   setup() {
     let dropzoneFile = ref("");
 
+    const callTest = async() => {
+      const test = await axios.get("http://localhost:3000/test");
+      console.log("check::", test);
+    }
+
     const drop = (e) => {
       dropzoneFile.value = e.dataTransfer.files[0];
+      callTest()
     }
 
     const browseFile = () => {
       dropzoneFile.value = document.querySelector(".dropzoneFile").files[0];
+      callTest()
     }
 
     return { 

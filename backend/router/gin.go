@@ -40,11 +40,10 @@ func NewMyRouter() *MyRouter {
 	r := gin.Default()
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{
-		"http://localhost:3000",
+		"http://localhost:8080", //frontend
 	}
 	config.AllowHeaders = []string{
 		"Origin",
-		"Authorization",
 	}
 	r.Use(cors.New(config))
 
