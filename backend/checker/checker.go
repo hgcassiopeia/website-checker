@@ -44,7 +44,7 @@ func (h *Handler) Upload(c Context) {
 		return
 	}
 
-	err = c.SaveUploadedFile(file, "saved/"+file.Filename)
+	err = c.SaveUploadedFile(file, os.Getenv("PATH_UPLOAD")+"/"+file.Filename)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, map[string]interface{}{"error": err})
 		return
@@ -72,7 +72,7 @@ func (h *Handler) Upload(c Context) {
 }
 
 func scanFile(Filename string) ([]string, error) {
-	f, err := os.Open("saved/" + Filename)
+	f, err := os.Open(os.Getenv("PATH_UPLOAD") + "/" + Filename)
 	if err != nil {
 		return nil, err
 	}

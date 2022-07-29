@@ -1,0 +1,27 @@
+version: '3'
+services:
+  mygoapp:
+    env_file:
+      - ./backend/local.env
+    build: 
+      dockerfile: Dockerfile
+      context: ./backend
+    restart: always
+    networks:
+      - wc
+    ports:
+      - 3000:3000
+  myvueapp:
+    depends_on:
+      - mygoapp
+    build: 
+      dockerfile: Dockerfile
+      context: ./frontend
+    restart: always
+    networks:
+      - wc
+    ports:
+      - 8080:8080
+
+networks:
+  wc:

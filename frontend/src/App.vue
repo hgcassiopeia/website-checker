@@ -61,7 +61,7 @@ export default {
       let seconds = Math.floor(milliseconds / 1000);
       let minutes = Math.floor(seconds / 60);
       let hours = Math.floor(minutes / 60);
-      console.log("test: ", seconds, milliseconds)
+      
       seconds = (seconds % 60) == 0 ? milliseconds + " milliseconds" : (seconds % 60).toString() + " seconds";
       minutes = (minutes % 60) == 0 ? "" : (minutes % 60).toString() + " minutes and ";
       hours = (hours % 24) == 0 ? "" : (hours % 24).toString() + " hours and ";

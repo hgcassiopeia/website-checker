@@ -9,5 +9,5 @@ func main() {
 	r := router.NewMyRouter()
 	handler := checker.NewCheckerHandler()
 	r.POST("/upload", router.NewGinHandler(handler.Upload))
-	r.Run(":3000")
+	r.Run()
 }

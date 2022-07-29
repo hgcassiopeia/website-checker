@@ -1,17 +1,20 @@
-FROM golang:1.18-buster AS build
+FROM golang:1.18
 
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
+COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . ./
 
-ENV GOARCH=amd64
+RUN go build -o server
 
-FROM gcr.io/distroless/base-debian11
-COPY --from=build /go/bin/app /app
-EXPOSE 3000
-USER nonroot:nonroot
-CMD ["/app"]
+CMD ["./server"]
+
+# ENV GOARCH=amd64
+
+# FROM gcr.io/distroless/base-debian11
+# COPY --from=build /go/bin/app /app
+# EXPOSE 3000
+# USER nonroot:nonroot
+# CMD ["/app"]
