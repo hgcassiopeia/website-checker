@@ -1,18 +1,24 @@
 package checker
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-// func mockWebsiteChecker(url string) bool {
-// 	if url == "waat://furhurterwe.geds" {
-// 		return false
-// 	}
-// 	return true
-// }
+func TestScanFileNotFound(t *testing.T) {
+	// Arrange
+	mockFileName := "test.csv"
+
+	// Act
+	_, err := scanFile(mockFileName)
+
+	//Assert
+	assert.NotNil(t, err)
+}
 
 func TestCheckWebsites(t *testing.T) {
+	// Arrange
 	mockCount := &Counter{}
 	websites := []string{
 		"http://google.com",
@@ -20,21 +26,11 @@ func TestCheckWebsites(t *testing.T) {
 		"https://www.instag777ram.com",
 	}
 
+	// Act
 	actualResults := CheckWebsites(websites, mockCount)
 
+	//Assert
 	want := len(websites)
 	got := len(actualResults)
-	if want != got {
-		t.Fatalf("Lenght of input and output expected is %v, but got %v", want, got)
-	}
-
-	expectedResults := map[string]bool{
-		"http://google.com":            true,
-		"https://www.wikipedia.org":    true,
-		"https://www.instag777ram.com": false,
-	}
-
-	if !reflect.DeepEqual(expectedResults, actualResults) {
-		t.Fatalf("Wanted %v, got %v", expectedResults, actualResults)
-	}
+	assert.Equal(t, want, got, "they length should be equal")
 }

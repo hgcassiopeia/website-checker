@@ -2,8 +2,6 @@ package checker
 
 import (
 	"bufio"
-	"fmt"
-	"log"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -52,12 +50,12 @@ func (h *Handler) Upload(c Context) {
 		return
 	}
 
-	f, err := os.Open("saved/" + file.Filename)
+	links, err := scanFile(file.Filename)
 	if err != nil {
-		log.Fatal(err)
+		c.JSON(http.StatusBadRequest, map[string]interface{}{"error": err})
+		return
 	}
 
-	links := scanFile(f)
 	var sitesStatus []WebsiteStatus
 	sitesStatus = CheckWebsites(links, count)
 
@@ -73,7 +71,12 @@ func (h *Handler) Upload(c Context) {
 	c.JSON(http.StatusOK, responseCtx)
 }
 
-func scanFile(f *os.File) []string {
+func scanFile(Filename string) ([]string, error) {
+	f, err := os.Open("saved/" + Filename)
+	if err != nil {
+		return nil, err
+	}
+
 	s := bufio.NewScanner(f)
 	links := []string{}
 
@@ -83,7 +86,7 @@ func scanFile(f *os.File) []string {
 		link := lineArray[0]
 		links = append(links, link)
 	}
-	return links
+	return links, nil
 }
 
 func CheckWebsites(urls []string, count *Counter) []WebsiteStatus {
@@ -122,8 +125,6 @@ func CheckAvailableStatus(link string, count *Counter) bool {
 	_, err := http.Get(link)
 	if err != nil {
 		if link != "" {
-			fmt.Errorf("%s is down and got error %s", link, err)
-
 			count.LinksDown = append(count.LinksDown, link)
 			count.Down++
 		}

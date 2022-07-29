@@ -2,17 +2,11 @@ package checker
 
 import (
 	"testing"
-	"time"
 )
-
-func slowStubWebsiteChecker(_ string) bool {
-	time.Sleep(20 * time.Millisecond)
-	return true
-}
 
 func BenchmarkCheckWebsites(b *testing.B) {
 	mockCount := &Counter{}
-	urls := make([]string, 100)
+	urls := make([]string, 1000)
 	for i := 0; i < len(urls); i++ {
 		urls[i] = "a url"
 	}
