@@ -16,10 +16,6 @@ type WebsiteStatus struct {
 	Status bool
 }
 
-type Link struct {
-	Url string
-}
-
 type Counter struct {
 	LinksUp   []string
 	LinksDown []string
