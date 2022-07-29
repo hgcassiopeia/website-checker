@@ -3,22 +3,18 @@ package router
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/hgcassiopeia/website-checker/backend/checker"
 )
 
 type GinContext struct {
 	*gin.Context
 }
 
-type Context interface {
-	Bind(interface{}) error
-	JSON(int, interface{})
-}
-
 func NewGinContext(c *gin.Context) *GinContext {
 	return &GinContext{Context: c}
 }
 
-func NewGinHandler(handler func(Context)) gin.HandlerFunc {
+func NewGinHandler(handler func(checker.Context)) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		handler(NewGinContext(c))
 	}
@@ -38,6 +34,7 @@ type MyRouter struct {
 
 func NewMyRouter() *MyRouter {
 	r := gin.Default()
+	r.SetTrustedProxies(nil)
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{
 		"http://localhost:8080", //frontend
