@@ -58,7 +58,7 @@ func (h *Handler) Upload(c Context) {
 	}
 
 	links := scanFile(f)
-	var sitesStatus map[string]bool
+	var sitesStatus []WebsiteStatus
 	sitesStatus = CheckWebsites(links, count)
 
 	responseCtx := &CheckerResponse{
@@ -86,24 +86,29 @@ func scanFile(f *os.File) []string {
 	return links
 }
 
-type result struct {
-	string
-	bool
-}
+func CheckWebsites(urls []string, count *Counter) []WebsiteStatus {
+	results := []WebsiteStatus{}
+	resultChannel := make(chan WebsiteStatus)
 
-func CheckWebsites(urls []string, count *Counter) map[string]bool {
-	results := make(map[string]bool)
-	resultChannel := make(chan result)
-
-	for _, url := range urls {
-		go func(u string) {
-			resultChannel <- result{u, CheckAvailableStatus(u, count)}
-		}(url)
+	for index, url := range urls {
+		go func(u string, i int) {
+			i++
+			resultChannel <- WebsiteStatus{
+				ID:     i,
+				Link:   u,
+				Status: CheckAvailableStatus(u, count),
+			}
+		}(url, index)
 	}
 
 	for i := 0; i < len(urls); i++ {
 		result := <-resultChannel
-		results[result.string] = result.bool
+		r := WebsiteStatus{
+			ID:     result.ID,
+			Link:   result.Link,
+			Status: result.Status,
+		}
+		results = append(results, r)
 	}
 
 	return results

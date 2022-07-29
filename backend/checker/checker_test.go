@@ -25,13 +25,13 @@ func TestCheckWebsites(t *testing.T) {
 	want := len(websites)
 	got := len(actualResults)
 	if want != got {
-		t.Fatalf("Wanted %v, got %v", want, got)
+		t.Fatalf("Lenght of input and output expected is %v, but got %v", want, got)
 	}
 
 	expectedResults := map[string]bool{
-		"http://google.com":          true,
-		"http://blog.gypsydave5.com": true,
-		"waat://furhurterwe.geds":    false,
+		"http://google.com":            true,
+		"https://www.wikipedia.org":    true,
+		"https://www.instag777ram.com": false,
 	}
 
 	if !reflect.DeepEqual(expectedResults, actualResults) {
