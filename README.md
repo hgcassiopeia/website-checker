@@ -23,9 +23,9 @@ $ docker-compose up -d
 ```
 
 
-## 🎨 Frontend Setup
+## 🎨  Frontend Setup
 
-If you want to run only frontend. You can use `Makefile` to run frontend follow this.
+If you want to run only frontend, you should install packge with `yarn install` before. You can use `Makefile` to run frontend follow this.
 
 First step, build image file. This command will be create image tag name `myvuechecker:test`
 
@@ -37,6 +37,12 @@ Second step, build container. This command will be create container startup with
 
 ```
 $ make container
+```
+
+How to run frontend unit test.
+
+```
+$ make test
 ```
 
 ## ⚙  Backend Setup

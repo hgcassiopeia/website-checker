@@ -1,3 +1,6 @@
+test:
+	yarn test
+
 image:
 	docker build -t myvuechecker:test -f Dockerfile .
 

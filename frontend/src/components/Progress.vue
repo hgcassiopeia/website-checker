@@ -12,6 +12,7 @@
       </div>
       <div class="w-full h-4 bg-gray-200 rounded-full dark:bg-gray-700">
         <div
+          id="progress-bar"
           class="h-4 bg-primary rounded-full dark:bg-primary"
           :style="`width: ${uploading}%`"
         ></div>

@@ -20,7 +20,7 @@
             :uploading.sync="progressPercent"
           />
           <ResultCard
-            v-if="!uploading && progressPercent == '100'"
+            v-if="!errorMessage && !uploading && progressPercent == '100'"
             class="mt-8"
             :counter-up="counterUp"
             :counter-down="counterDown"
@@ -102,6 +102,7 @@ export default {
         counterDown.value = 0;
         totalLinks.value = 0;
         processTime.value = "";
+        progressPercent.value = 0
       } finally {
         uploading.value = false;
       }
