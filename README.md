@@ -23,11 +23,11 @@ $ docker-compose up -d
 ```
 
 
-## 🎨  Frontend Setup
+## 🎨  Frontend Start
 
 If you want to run only frontend, you should install packge with `yarn install` before. You can use `Makefile` to run frontend follow this.
 
-First step, build image file. This command will be create image tag name `myvuechecker:test`
+First step, build image file. This command will be create image tag name `myvuechecker`
 
 ```
 $ make image
@@ -45,11 +45,11 @@ How to run frontend unit test.
 $ make test
 ```
 
-## ⚙  Backend Setup
+## ⚙  Backend Start
 
 If you want to run only backend. You can use `Makefile` to run backend follow this.
 
-First step, build image file. This command will be create image tag name `mygochecker:test`
+First step, build image file. This command will be create image name `mygochecker`
 
 ```
 $ make image
