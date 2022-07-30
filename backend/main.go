@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/hgcassiopeia/website-checker/backend/checker"
 	"github.com/hgcassiopeia/website-checker/backend/router"
@@ -11,7 +11,7 @@ import (
 func main() {
 	err := godotenv.Load("local.env")
 	if err != nil {
-		log.Println("please consider enviroment variables: %s", err)
+		fmt.Printf("please consider enviroment variables: %s", err)
 	}
 
 	r := router.NewMyRouter()

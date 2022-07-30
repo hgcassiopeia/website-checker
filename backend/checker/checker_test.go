@@ -3,7 +3,7 @@ package checker
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/test-go/testify/assert"
 )
 
 func TestScanFileNotFound(t *testing.T) {
